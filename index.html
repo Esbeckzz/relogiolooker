@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<title>Relógio Digital - Brasília</title>
+<title>Relógio Digital - Brasília (Fixo)</title>
 <style>
   body {
     background: #000;
@@ -29,14 +29,27 @@
 <script>
 function updateClock() {
   const now = new Date();
-  let hours = now.getHours().toString().padStart(2, '0');
-  let minutes = now.getMinutes().toString().padStart(2, '0');
-  let seconds = now.getSeconds().toString().padStart(2, '0');
+
+  const options = {
+    timeZone: 'America/Sao_Paulo',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    hour12: false
+  };
+
+  const formatter = new Intl.DateTimeFormat('pt-BR', options);
+  const timeParts = formatter.formatToParts(now);
+
+  let hours = timeParts.find(p => p.type === 'hour').value;
+  let minutes = timeParts.find(p => p.type === 'minute').value;
+  let seconds = timeParts.find(p => p.type === 'second').value;
+
   document.getElementById('clock').textContent = `${hours}:${minutes}:${seconds}`;
 }
 
 setInterval(updateClock, 1000);
-updateClock(); // chama uma vez no carregamento
+updateClock();
 </script>
 
 </body>
