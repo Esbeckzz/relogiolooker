@@ -1,10 +1,43 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <title>Relógio Digital - Brasília</title>
+<meta charset="UTF-8">
+<title>Relógio Digital - Brasília</title>
+<style>
+  body {
+    background: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  #clock {
+    font-family: 'Arial', sans-serif;
+    color: #00FF00;
+    font-size: 48px;
+    background-color: #111;
+    padding: 10px 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px #00FF00;
+  }
+</style>
 </head>
-<body style="margin:0; display:flex; justify-content:center; align-items:center; height:100vh;">
-  <iframe scrolling="no" frameborder="no" clocktype="html5" style="overflow:hidden;border:0;margin:0;padding:0;width:91px;height:30px;" src="https://www.clocklink.com/html5embed.php?clock=008&timezone=America/Sao_Paulo&color=black&size=91&Title=&Message=&Target=&From=2025,1,1,0,0,0&Color=black"></iframe>
+<body>
+
+<div id="clock">00:00:00</div>
+
+<script>
+function updateClock() {
+  const now = new Date();
+  let hours = now.getHours().toString().padStart(2, '0');
+  let minutes = now.getMinutes().toString().padStart(2, '0');
+  let seconds = now.getSeconds().toString().padStart(2, '0');
+  document.getElementById('clock').textContent = `${hours}:${minutes}:${seconds}`;
+}
+
+setInterval(updateClock, 1000);
+updateClock(); // chama uma vez no carregamento
+</script>
+
 </body>
 </html>
